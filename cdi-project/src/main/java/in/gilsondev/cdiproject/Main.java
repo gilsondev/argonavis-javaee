@@ -2,13 +2,28 @@ package in.gilsondev.cdiproject;
 
 import in.gilsondev.cdiproject.enums.LivroStatus;
 import in.gilsondev.cdiproject.pojos.Livro;
-import in.gilsondev.cdiproject.storages.BibliotecaNoSql;
 import in.gilsondev.cdiproject.storages.BibliotecaStorage;
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+@Named
 public class Main {
+//    @Inject
+//    BibliotecaImpl biblioteca;
+//
+//    @Inject
+//    BibliotecaStorage dao;
+
     public static void main(String[] args) {
-        BibliotecaImpl biblioteca = new BibliotecaImpl(); // criando o componente
-        BibliotecaStorage dao = new BibliotecaNoSql();    // criando a dependência
+        Weld weld = new Weld();
+        WeldContainer container = weld.initialize();
+
+        BibliotecaImpl biblioteca = container.select(BibliotecaImpl.class).get();
+        BibliotecaStorage dao = container.select(BibliotecaStorage.class).get();
+
         biblioteca.setBibliotecaStorage(dao);             // injetando a dependencia no componente
 
         Livro livro = new Livro();
@@ -16,5 +31,7 @@ public class Main {
         livro.setStatus(LivroStatus.DISPONIVEL);
 
         biblioteca.emprestar(livro);
+
+        container.shutdown();
     }
 }

@@ -4,6 +4,10 @@ import in.gilsondev.cdiproject.enums.LivroStatus;
 import in.gilsondev.cdiproject.pojos.Livro;
 import in.gilsondev.cdiproject.storages.BibliotecaStorage;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+@Named("biblioteca")
 public class BibliotecaImpl implements Biblioteca {
     private BibliotecaStorage dao; // uma dependência!
 
@@ -17,6 +21,7 @@ public class BibliotecaImpl implements Biblioteca {
         dao.atualizarStatus(livro);
     }
 
+    @Inject
     public void setBibliotecaStorage(BibliotecaStorage ref) {
         this.dao = ref;
     }
