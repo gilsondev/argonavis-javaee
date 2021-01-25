@@ -1,6 +1,7 @@
 package in.gilsondev.cdiproject.managedbeans;
 
 import in.gilsondev.cdiproject.pojos.Usuario;
+import in.gilsondev.cdiproject.qualifiers.Random;
 import in.gilsondev.cdiproject.services.MailService;
 
 import javax.faces.bean.RequestScoped;
@@ -19,6 +20,10 @@ public class Mail {
     private String mensagem;
 
     private String destinatario;
+
+    @Inject
+    @Random
+    private int aleatorio;
 
     public String enviarEmail() {
         mailService.enviar(usuario.getEmail(), "fulano@mail.com", "Teste");
@@ -39,5 +44,9 @@ public class Mail {
 
     public void setDestinatario(String destinatario) {
         this.destinatario = destinatario;
+    }
+
+    public int getAleatorio() {
+        return aleatorio;
     }
 }
