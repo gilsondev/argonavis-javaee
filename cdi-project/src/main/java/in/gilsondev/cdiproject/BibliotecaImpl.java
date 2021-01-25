@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 @Named("biblioteca")
 public class BibliotecaImpl implements Biblioteca {
+    @Inject
     private BibliotecaStorage dao; // uma dependência!
 
     public void emprestar(Livro livro) {
@@ -19,10 +20,5 @@ public class BibliotecaImpl implements Biblioteca {
     public void devolver(Livro livro) {
         livro.setStatus(LivroStatus.DISPONIVEL);
         dao.atualizarStatus(livro);
-    }
-
-    @Inject
-    public void setBibliotecaStorage(BibliotecaStorage ref) {
-        this.dao = ref;
     }
 }

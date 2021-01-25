@@ -24,8 +24,6 @@ public class Main {
         BibliotecaImpl biblioteca = container.select(BibliotecaImpl.class).get();
         BibliotecaStorage dao = container.select(BibliotecaStorage.class).get();
 
-        biblioteca.setBibliotecaStorage(dao);             // injetando a dependencia no componente
-
         Livro livro = new Livro();
         livro.setNome("Java efetivo");
         livro.setStatus(LivroStatus.DISPONIVEL);
